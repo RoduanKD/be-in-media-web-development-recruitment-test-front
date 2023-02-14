@@ -1,5 +1,21 @@
+<script setup>
+const { user } = await useAuth()
+const { data: categories } = await useAsyncData('categories', () => $larafetch(`/api/v1/${user.value.slug}/categories`))
+</script>
+
 <template>
   <v-container>
-    <div>Welcome to you spot</div>
+    <v-row>
+      <v-col>
+        <h1 class="h1">
+          My Menu
+        </h1>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <categories-panel :categories="categories" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
