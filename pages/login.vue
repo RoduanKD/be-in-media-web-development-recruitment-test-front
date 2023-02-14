@@ -24,7 +24,7 @@ async function submit () {
   await submitRequest(
     login(form),
     () => {
-      router.push('/dashboard')
+      router.push('/my-menu')
     },
     (validationErrors) => {
       errors.value = validationErrors ?? {}
