@@ -1,20 +1,14 @@
-# Nuxt 3 Minimal Starter
+## Be In Media - Web development Recruitment test (Frontend)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is the front of the restaurant menu. you can find the backend project [here](https://github.com/roduankd/be-in-media-web-development-recruitment-test)
 
 ## Setup
 
-Make sure to install the dependencies:
+Make sure to install the dependencies & create the proper `.env` file.
 
 ```bash
-# yarn
-yarn install
-
-# npm
 npm install
-
-# pnpm
-pnpm install
+cp .env.example .env
 ```
 
 ## Development Server
