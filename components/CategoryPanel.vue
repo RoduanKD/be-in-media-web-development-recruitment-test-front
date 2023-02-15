@@ -1,4 +1,6 @@
 <script setup>
+import DiscountDialog from './DiscountDialog'
+
 const props = defineProps({
   category: {
     type: Object,
@@ -7,25 +9,39 @@ const props = defineProps({
 })
 const menu = reactive({ items: {} })
 if (!props.category.children) {
+  loadItems()
+}
+
+const discount = ref(0)
+const canHaveSubCategory = computed(() => props.category.level < 4 && !menu.items.data)
+const discountText = computed(() => props.category.discount ? `(${discount.value || props.category.discount}% off)` : '')
+
+function loadItems () {
   $larafetch(`/api/v1/categories/${props.category.slug}/menu-items`).then((data) => {
     menu.items = data
   })
 }
 
-const canHaveSubCategory = computed(() => props.category.level < 4 && !menu.items.data)
+function discountUpdated (val) {
+  discount.value = val
+  loadItems()
+}
 </script>
 
 <template>
   <v-expansion-panel>
     <v-expansion-panel-title>
       {{ category.name }}
+      {{ discountText }}
       <v-spacer />
+      <discount-dialog :item="category" type="category" @discount-updated="discountUpdated" />
       <v-btn
         v-if="canHaveSubCategory"
         :to="{ name: 'categories-create', query: { parent: category.slug }}"
         color="success"
         prepend-icon="mdi-plus"
         size="x-small"
+        class="mx-2"
       >
         Subcategory
       </v-btn>
@@ -35,6 +51,7 @@ const canHaveSubCategory = computed(() => props.category.level < 4 && !menu.item
         color="info"
         prepend-icon="mdi-plus"
         size="x-small"
+        class="mx-2"
       >
         Menu item
       </v-btn>
