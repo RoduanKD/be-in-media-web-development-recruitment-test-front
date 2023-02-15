@@ -11,7 +11,7 @@ const { user, logout, isLoggedIn } = useAuth()
         Login
       </v-btn>
       <template v-else>
-        <v-btn variant="text">
+        <v-btn to="/my-menu" variant="text">
           Hello {{ user.name }}!
         </v-btn>
         <v-btn variant="text" stacked @click="logout">

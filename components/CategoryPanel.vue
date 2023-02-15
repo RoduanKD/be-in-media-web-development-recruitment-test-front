@@ -11,10 +11,25 @@ if (!props.category.children) {
     menu.items = data
   })
 }
+
+const canHaveSubCategory = computed(() => props.category.level < 4 && !menu.items.data)
 </script>
 
 <template>
-  <v-expansion-panel :title="category.name">
+  <v-expansion-panel>
+    <v-expansion-panel-title>
+      {{ category.name }}
+      <v-spacer />
+      <v-btn
+        v-if="canHaveSubCategory"
+        :to="{ name: 'categories-create', query: { parent: category.slug }}"
+        color="success"
+        prepend-icon="mdi-plus"
+        size="x-small"
+      >
+        Subcategory
+      </v-btn>
+    </v-expansion-panel-title>
     <v-expansion-panel-text v-if="category.children">
       <v-expansion-panels>
         <category-panel v-for="subcategory in category.children" :key="subcategory.slug" :category="subcategory" />
