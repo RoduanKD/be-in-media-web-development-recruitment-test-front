@@ -31,18 +31,20 @@ async function submit () {
   )
 }
 </script>
+
 <template>
   <v-container>
     <v-row justify="center">
       <v-col cols="12" lg="6">
         <v-card title="New Category">
           <v-card-text>
-            <v-form @submit.prevent="submit">
-              <v-text-field v-model="form.name" label="Category Name" placeholder="Main dish" />
+            <v-form :disabled="processing" @submit.prevent="submit">
+              <v-text-field v-model="form.name" label="Category Name" placeholder="Main dish" :error-messages="errors.name" />
               <v-select
                 v-model="form.parent_id"
                 label="Parent Category"
                 :items="parents.data"
+                :error-messages="errors.parent_id"
                 item-title="name"
                 item-value="id"
                 clearable
@@ -50,6 +52,7 @@ async function submit () {
               <v-btn
                 type="submit"
                 color="primary"
+                :loading="processing"
               >
                 Save
               </v-btn>
