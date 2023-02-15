@@ -12,7 +12,7 @@ const { user } = await useAuth()
 const form = reactive({ name: '', parent_id: null })
 const { data: parents } = await useAsyncData('parents', () => $larafetch(`/api/v1/${user.value.slug}/categories/can-have-child-category`))
 if (route.query.parent) {
-  form.parent_id = parents.value.data.find(parent => parent.slug === route.query.parent)
+  form.parent_id = parents.value.data.find(parent => parent.slug === route.query.parent).id
 }
 
 async function submit () {
