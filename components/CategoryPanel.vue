@@ -29,6 +29,15 @@ const canHaveSubCategory = computed(() => props.category.level < 4 && !menu.item
       >
         Subcategory
       </v-btn>
+      <v-btn
+        v-else
+        :to="{ name: 'menu-items-create', query: { category: category.slug }}"
+        color="info"
+        prepend-icon="mdi-plus"
+        size="x-small"
+      >
+        Menu item
+      </v-btn>
     </v-expansion-panel-title>
     <v-expansion-panel-text v-if="category.children">
       <v-expansion-panels>
