@@ -1,6 +1,4 @@
 <script setup>
-import DiscountDialog from './DiscountDialog'
-
 const props = defineProps({
   category: {
     type: Object,
@@ -71,7 +69,7 @@ function discountUpdated (val) {
           md="4"
           xl="3"
         >
-          <menu-item-card :item="item" />
+          <menu-item-card :item="item" @discount-updated="loadItems" />
         </v-col>
       </v-row>
     </v-expansion-panel-text>
